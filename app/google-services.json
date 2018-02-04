@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "629514251271",
+    "firebase_url": "https://expmeal-74.firebaseio.com",
+    "project_id": "expmeal-74",
+    "storage_bucket": "expmeal-74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629514251271:android:5f0144f8c16480ba",
+        "android_client_info": {
+          "package_name": "com.eslamwael74.inq.expmeal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629514251271-of7be6on82pjo1du18t4ne1pdvknehvm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eslamwael74.inq.expmeal",
+            "certificate_hash": "68c34fcffe20a093c45c92ffd8f20d36f82dc37c"
+          }
+        },
+        {
+          "client_id": "629514251271-6o0p69ee6mf48h3t0ni75aon089kgcsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVwBjdOvw90Fbi-VwdffmNN-vqr2vBcFE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629514251271-6o0p69ee6mf48h3t0ni75aon089kgcsm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

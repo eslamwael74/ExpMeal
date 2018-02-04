@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:elevation="@dimen/toolbar_elevation"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetEnd="@dimen/no_thing"
+        app:contentInsetStart="@dimen/no_thing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/lin_add"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+
+                <View style="@style/view_height" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/image_toolbar_padding"
+                    android:paddingRight="@dimen/image_toolbar_padding"
+                    android:src="@drawable/ic_add_red_24dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/meal"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <LinearLayout
+                android:id="@+id/lin_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/image_toolbar_padding"
+                    android:paddingRight="@dimen/image_toolbar_padding"
+                    android:src="@drawable/ic_star_red_24dp" />
+
+
+                <View style="@style/view_height" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/tv_meal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/meal_vertical_margin"
+        android:background="@drawable/border_meal_home"
+        android:padding="@dimen/circle_home_padding"
+        android:text="@string/meal"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="MissingConstraints" />
+
+
+    <Button
+        android:id="@+id/btn_generate_new_meal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/btn_home_vertical_margin"
+        android:background="@drawable/border_black_btn"
+        android:paddingLeft="@dimen/btn_home_padding"
+        android:paddingRight="@dimen/btn_home_padding"
+        android:text="@string/generate_new_meal"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_meal"
+        app:layout_constraintRight_toRightOf="@+id/tv_meal"
+        app:layout_constraintTop_toBottomOf="@+id/tv_meal" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,24 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="login_register_width">200dp</dimen>
+    <dimen name="login_vertical_margin">6dp</dimen>
+    <dimen name="register_vertical_margin">1dp</dimen>
+    <dimen name="login_vertical_margin_lin_top">140dp</dimen>
+    <dimen name="register_vertical_margin_lin_top">60dp</dimen>
+    <dimen name="button_register_width">140dp</dimen>
+    <dimen name="now_vertical_margin">32dp</dimen>
+    <dimen name="toolbar_height">46dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="no_thing">0dp</dimen>
+    <dimen name="image_toolbar_padding">10dp</dimen>
+    <dimen name="line_width">0.7dp</dimen>
+    <dimen name="circle_size">120dp</dimen>
+    <dimen name="circle_home_padding">80dp</dimen>
+    <dimen name="meal_vertical_margin">100dp</dimen>
+    <dimen name="btn_home_vertical_margin">60dp</dimen>
+    <dimen name="btn_home_padding">14dp</dimen>
+
+
+</resources>
