@@ -19,6 +19,8 @@
     <dimen name="meal_vertical_margin">100dp</dimen>
     <dimen name="btn_home_vertical_margin">60dp</dimen>
     <dimen name="btn_home_padding">14dp</dimen>
+    <dimen name="CircleImageView_margin_top">12dp</dimen>
+    <dimen name="CircleImageView_size">120dp</dimen>
 
 
 </resources>
