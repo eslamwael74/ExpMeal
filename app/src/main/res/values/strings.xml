@@ -24,4 +24,8 @@
     <string name="login_now">If you have account Login now!</string>
     <string name="meal">Meal</string>
     <string name="generate_new_meal">Generate new meal</string>
+    <string name="name_error">Name error</string>
+    <string name="email_error">Email error</string>
+    <string name="phone_error">Phone error</string>
+    <string name="password_error">Password error</string>
 </resources>
