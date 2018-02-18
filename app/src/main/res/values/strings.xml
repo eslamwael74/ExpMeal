@@ -28,4 +28,16 @@
     <string name="email_error">Email error</string>
     <string name="phone_error">Phone error</string>
     <string name="password_error">Password error</string>
+    <string name="error">Error!!</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="category">Category: </string>
+    <string name="breakfast">breakfast</string>
+    <string name="lunch">lunch</string>
+    <string name="dinner">dinner</string>
+    <string name="how_to">How to prepare food</string>
+    <string name="preparation_time">Preparation time</string>
+    <string name="min">min</string>
+    <string name="add_new_meal">Add New Meal</string>
+    <string name="add">add</string>
+    <string name="meal_name">Meal name</string>
 </resources>

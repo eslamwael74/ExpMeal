@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:clickable="true"
-    android:focusable="true"
     android:layout_height="match_parent"
     android:background="@color/white">
 
@@ -26,7 +24,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_meal_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -43,7 +40,6 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/fav_img"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/background_gray_ripple"
@@ -90,8 +86,8 @@
         app:layout_constraintTop_toBottomOf="@id/meal_image"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/tv_ingredients"
+    <EditText
+        android:id="@+id/edit_text_ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -108,10 +104,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="@dimen/btn_home_padding"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_ingredients">
+        app:layout_constraintTop_toBottomOf="@id/edit_text_ingredients">
 
         <TextView
             android:layout_width="wrap_content"
@@ -119,66 +115,28 @@
             android:text="@string/category"
             android:textSize="@dimen/textViewSize" />
 
-        <TextView
-            android:id="@+id/tv_category"
-            android:layout_width="wrap_content"
+        <RadioButton
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:textSize="@dimen/textViewSize" />
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@string/breakfast" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@string/lunch" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@string/dinner" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/lin_how_to"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="@dimen/btn_home_padding"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lin_category">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/how_to"
-            android:textSize="@dimen/textViewSize" />
-
-        <TextView
-            android:id="@+id/tv_how_to"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textViewSize" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lin_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="@dimen/btn_home_padding"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lin_how_to">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/preparation_time"
-            android:textSize="@dimen/textViewSize" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:textSize="@dimen/textViewSize" />
-
-    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

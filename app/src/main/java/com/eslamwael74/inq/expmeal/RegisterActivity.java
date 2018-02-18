@@ -7,12 +7,17 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
@@ -27,9 +32,11 @@ public class RegisterActivity extends AppCompatActivity {
     String password;
 
     private FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
 
     @BindView(R.id.text_input_name)
     TextInputLayout textInputName;
@@ -76,18 +83,48 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         mAuth = FirebaseAuth.getInstance();
+
     }
 
+    void addNewUser(String name, String email, String phone, String password, String uid) {
+        DatabaseReference databaseReference = database.getReference("users");
+
+        User user = new User(name, email, phone, password);
+
+        databaseReference.child(name).child(uid).setValue(user).
+                addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        startActivity(new Intent(this, MainActivity.class));
+                        finishAffinity();
+
+                    } else {
+                        Log.e(TAG, "addNewUser: " + task.getException());
+                    }
+                });
+
+    }
+
+    private static final String TAG = "RegisterActivity";
 
     void initFirebase() {
 
         if (validateData()) {
+            progressBar.setVisibility(View.VISIBLE);
 
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
-                            //here yous should setYourData
+                            firebaseUser = task.getResult().getUser();
+
+                            addNewUser(name,
+                                    email,
+                                    phone,
+                                    password,
+                                    firebaseUser.getUid()
+                            );
+                        } else {
+                            Log.e(TAG, "initFirebase: " + task.getException());
                         }
                     });
         }

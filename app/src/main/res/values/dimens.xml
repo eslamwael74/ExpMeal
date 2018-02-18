@@ -21,6 +21,7 @@
     <dimen name="btn_home_padding">14dp</dimen>
     <dimen name="CircleImageView_margin_top">12dp</dimen>
     <dimen name="CircleImageView_size">120dp</dimen>
+    <dimen name="textViewSize">15sp</dimen>
 
 
 </resources>

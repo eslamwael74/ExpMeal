@@ -3,14 +3,27 @@ package com.eslamwael74.inq.expmeal;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by eslamwael74 on 2/4/2018.
@@ -20,34 +33,47 @@ public class MealDetailsFragment extends Fragment {
 
 
     private static final String ARG_Ex = "MealFragment";
-    private String example;
+    private Meal meal;
 
-    @BindView(R.id.tv_meal)
-    TextView tvMeal;
+    final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    FirebaseAuth mAuth;
+    String uid;
+    boolean isFav =false;
 
-    @OnClick(R.id.btn_generate_new_meal)
-    void generateBtnClick() {
-        Toast.makeText(getActivity(), "Generate new meal", Toast.LENGTH_SHORT).show();
+    @BindView(R.id.fav_img)
+    ImageView mFavImage;
+
+    @OnClick(R.id.fav_img)
+    void favClick() {
+        if (isFav)
+            removeFromFavourite();
+        else
+            addToFavourites();
     }
 
-    @OnClick(R.id.lin_add)
-    void addBtnClick() {
+    @BindView(R.id.tv_meal_name)
+    TextView tvMealName;
 
-    }
+    @BindView(R.id.tv_ingredients)
+    TextView tvIngredients;
 
-    @OnClick(R.id.lin_fav)
-    void favBtnClick() {
+    @BindView(R.id.tv_category)
+    TextView tvCategory;
 
-    }
+    @BindView(R.id.tv_how_to)
+    TextView tvHowTo;
+
+    @BindView(R.id.tv_time)
+    TextView tvPreparationTime;
 
 
     public MealDetailsFragment() {
     }
 
-    public static MealDetailsFragment newInstance(String example) {
+    public static MealDetailsFragment newInstance(Meal meal) {
         MealDetailsFragment firstFragment = new MealDetailsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_Ex, example);
+        args.putParcelable(ARG_Ex, meal);
         firstFragment.setArguments(args);
         return firstFragment;
     }
@@ -55,7 +81,7 @@ public class MealDetailsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        example = getArguments().getString(ARG_Ex);
+        meal = getArguments().getParcelable(ARG_Ex);
     }
 
     @Nullable
@@ -63,7 +89,108 @@ public class MealDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_meal_details, container, false);
+        ButterKnife.bind(this, view);
+
+        if (meal != null)
+            init();
+        else
+            getActivity().onBackPressed();
 
         return view;
+
+    }
+
+    void init() {
+
+
+        initFirebase();
+
+        tvMealName.setText(meal.getName());
+        tvIngredients.setText(meal.getIngredients());
+        if (meal.getCategory() == 0)
+            tvCategory.setText(getString(R.string.breakfast));
+        else if (meal.getCategory() == 1)
+            tvCategory.setText(getString(R.string.lunch));
+        else
+            tvCategory.setText(getString(R.string.dinner));
+        tvHowTo.setText(meal.gethToPrepare());
+        tvPreparationTime.setText(meal.getPerpetrationTime());
+
+
+
+    }
+
+    void initFirebase() {
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        uid = user.getUid();
+
+        DatabaseReference databaseReference = firebaseDatabase.getReference("FavouriteMeals/users/" + uid + "/" + meal.getId());
+        Log.d(TAG, "initFirebase: " + meal.getId());
+//        databaseReference.child("users/").child(uid);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Meal newMeal = dataSnapshot.getValue(Meal.class);
+
+                if (newMeal != null) {
+
+                    if (meal.getId().equals(newMeal.getId())) {
+                        isFav = true;
+                    } else {
+                        isFav = false;
+                    }
+
+                    if (isFav) {
+                        mFavImage.setImageResource(R.drawable.ic_star_red_24dp);
+                    } else {
+                        mFavImage.setImageResource(R.drawable.ic_star_border_red_24dp);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    void addToFavourites() {
+
+        DatabaseReference databaseReference = firebaseDatabase.getReference("FavouriteMeals");
+
+        Meal m = new Meal(meal.getId(),
+                meal.getName(),
+                meal.getImage(),
+                meal.getIngredients(),
+                meal.getCategory(),
+                meal.gethToPrepare(),
+                meal.getPerpetrationTime());
+
+        databaseReference.child("users").child(uid).child(meal.getId()).setValue(m).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                isFav = true;
+                mFavImage.setImageResource(R.drawable.ic_star_red_24dp);
+            }
+        });
+
+    }
+
+    void removeFromFavourite() {
+        DatabaseReference databaseReference = firebaseDatabase.getReference("FavouriteMeals");
+
+        databaseReference.child("users").child(uid).child(meal.getId()).removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                isFav = false;
+                mFavImage.setImageResource(R.drawable.ic_star_border_red_24dp);
+
+            }
+        });
     }
 }
