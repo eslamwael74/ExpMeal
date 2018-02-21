@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'expkey'
+            keyPassword '1234exp'
+            storeFile file('$rootDir/expmealjks.jks')
+            storePassword '1234exp'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.eslamwael74.inq.expmeal"
@@ -13,14 +21,13 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
-
 }
 
 dependencies {
@@ -39,10 +46,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     //firebase-auth
     implementation 'com.google.firebase:firebase-auth:11.8.0'
-
     //firebase database
     implementation 'com.google.firebase:firebase-database:11.8.0'
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
