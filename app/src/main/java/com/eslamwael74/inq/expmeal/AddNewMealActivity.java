@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -63,6 +65,9 @@ public class AddNewMealActivity extends AppCompatActivity {
 
     final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     int category;
+    FirebaseAuth mAuth;
+    String uid;
+
 
 
     @Override
@@ -71,21 +76,31 @@ public class AddNewMealActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_meal);
 
         ButterKnife.bind(this);
+        initAuth();
+    }
+    void initAuth(){
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        uid = firebaseUser.getUid();
     }
 
     void initFirebase() {
+
+
         DatabaseReference databaseReference = firebaseDatabase.getReference("meals");
 
         String id = databaseReference.push().getKey();
 
         Meal meal = new Meal(
                 id,
+                uid,
                 editTextMealName.getText().toString().trim(),
                 "sa",
                 editTextIngredients.getText().toString().trim(),
                 category,
                 editTextHowTo.getText().toString().trim(),
-                editTextTime.getText().toString().trim()
+                editTextTime.getText().toString().trim(),
+                0
         );
         databaseReference.child(id).setValue(meal);
     }

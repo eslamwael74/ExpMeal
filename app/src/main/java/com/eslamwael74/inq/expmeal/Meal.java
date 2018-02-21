@@ -11,6 +11,8 @@ public class Meal implements Parcelable {
 
     String id;
 
+    String uid;
+
     String name;
 
     String image;
@@ -23,31 +25,35 @@ public class Meal implements Parcelable {
 
     String perpetrationTime;
 
+    int fav;
+
     public Meal() {
 
     }
 
-
-    public Meal(String id, String name, String image, String ingredients, int category, String hToPrepare, String perpetrationTime) {
+    public Meal(String id, String uid, String name, String image, String ingredients, int category, String hToPrepare, String perpetrationTime, int fav) {
         this.id = id;
+        this.uid = uid;
         this.name = name;
         this.image = image;
         this.ingredients = ingredients;
         this.category = category;
         this.hToPrepare = hToPrepare;
         this.perpetrationTime = perpetrationTime;
+        this.fav = fav;
     }
 
-
     protected Meal(Parcel in) {
+        id = in.readString();
+        uid = in.readString();
         name = in.readString();
         image = in.readString();
         ingredients = in.readString();
         category = in.readInt();
         hToPrepare = in.readString();
         perpetrationTime = in.readString();
+        fav = in.readInt();
     }
-
 
     public static final Creator<Meal> CREATOR = new Creator<Meal>() {
         @Override
@@ -60,6 +66,14 @@ public class Meal implements Parcelable {
             return new Meal[size];
         }
     };
+
+    public String getId() {
+        return id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
 
     public String getName() {
         return name;
@@ -85,32 +99,8 @@ public class Meal implements Parcelable {
         return perpetrationTime;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public void setCategory(int category) {
-        this.category = category;
-    }
-
-    public void sethToPrepare(String hToPrepare) {
-        this.hToPrepare = hToPrepare;
-    }
-
-    public void setPerpetrationTime(String perpetrationTime) {
-        this.perpetrationTime = perpetrationTime;
-    }
-
-    public String getId() {
-        return id;
+    public int getFav() {
+        return fav;
     }
 
     @Override
@@ -121,11 +111,13 @@ public class Meal implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
+        dest.writeString(uid);
         dest.writeString(name);
         dest.writeString(image);
         dest.writeString(ingredients);
         dest.writeInt(category);
         dest.writeString(hToPrepare);
         dest.writeString(perpetrationTime);
+        dest.writeInt(fav);
     }
 }

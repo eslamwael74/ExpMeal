@@ -40,4 +40,5 @@
     <string name="add_new_meal">Add New Meal</string>
     <string name="add">add</string>
     <string name="meal_name">Meal name</string>
+    <string name="favourite_meals">Favourite meals</string>
 </resources>

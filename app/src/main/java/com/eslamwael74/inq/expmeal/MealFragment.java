@@ -59,11 +59,16 @@ public class MealFragment extends Fragment {
 
     @OnClick(R.id.lin_fav)
     void favBtnClick() {
-
+        FavouriteFragment favouriteFragment = FavouriteFragment.newInstance("");
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_home, favouriteFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 
     final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    ChildEventListener mChildEventListener;
 
 
     public MealFragment() {
@@ -96,24 +101,21 @@ public class MealFragment extends Fragment {
     }
 
     ArrayList<Meal> meals = new ArrayList<>();
-    int count = 0;
-
+    int count = 1;
+    DatabaseReference databaseReference;
     void initFirebase() {
-        DatabaseReference databaseReference = firebaseDatabase.getReference("meals");
+        databaseReference = firebaseDatabase.getReference("meals");
 
-
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                count = (int) dataSnapshot.getChildrenCount();
+                count++;
 
 
                 Meal meal = dataSnapshot.getValue(Meal.class);
                 meals.add(meal);
-                Toast.makeText(getActivity(), "" + dataSnapshot.getChildrenCount(), Toast.LENGTH_SHORT).show();
-                if (count >= dataSnapshot.getChildrenCount()) {
+                if (count <= dataSnapshot.getChildrenCount()) {
                     generateNewMeal(meals);
-                    count++;
                 }
 
             }
@@ -137,11 +139,26 @@ public class MealFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+        databaseReference.addChildEventListener(mChildEventListener);
+
 //        String id =  databaseReference.push().getKey();
 //
 //        Meal meal = new Meal("secondMeal","aaa","eeweweewew",0,"w","50");
 //        databaseReference.child(id).setValue(meal);
+    }
+
+    void deAttachDatabaseReadListener() {
+        if (mChildEventListener != null) {
+            databaseReference.removeEventListener(mChildEventListener);
+            mChildEventListener = null;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        deAttachDatabaseReadListener();
     }
 
     Meal meal = new Meal();
@@ -155,5 +172,6 @@ public class MealFragment extends Fragment {
         meal = mealList.get(index);
 
         tvMeal.setText(meal.getName());
+
     }
 }

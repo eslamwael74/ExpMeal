@@ -38,13 +38,14 @@ public class MealDetailsFragment extends Fragment {
     final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     FirebaseAuth mAuth;
     String uid;
-    boolean isFav =false;
+    boolean isFav = false;
 
     @BindView(R.id.fav_img)
     ImageView mFavImage;
 
     @OnClick(R.id.fav_img)
     void favClick() {
+//        deAttachDatabaseReadListener();
         if (isFav)
             removeFromFavourite();
         else
@@ -117,8 +118,11 @@ public class MealDetailsFragment extends Fragment {
         tvPreparationTime.setText(meal.getPerpetrationTime());
 
 
-
     }
+
+    ValueEventListener mValueEventListener;
+
+    DatabaseReference databaseReference;
 
     void initFirebase() {
 
@@ -126,29 +130,27 @@ public class MealDetailsFragment extends Fragment {
         final FirebaseUser user = mAuth.getCurrentUser();
         uid = user.getUid();
 
-        DatabaseReference databaseReference = firebaseDatabase.getReference("FavouriteMeals/users/" + uid + "/" + meal.getId());
+
+        databaseReference = firebaseDatabase.getReference("FavouriteMeals/users/" + uid + "/" + meal.getId());
         Log.d(TAG, "initFirebase: " + meal.getId());
 //        databaseReference.child("users/").child(uid);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        mValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Meal newMeal = dataSnapshot.getValue(Meal.class);
 
                 if (newMeal != null) {
-
-                    if (meal.getId().equals(newMeal.getId())) {
-                        isFav = true;
-                    } else {
+                    if (newMeal.getFav() == 0) {
                         isFav = false;
-                    }
-
-                    if (isFav) {
-                        mFavImage.setImageResource(R.drawable.ic_star_red_24dp);
-                    } else {
                         mFavImage.setImageResource(R.drawable.ic_star_border_red_24dp);
+                    } else {
+                        isFav = true;
+                        mFavImage.setImageResource(R.drawable.ic_star_red_24dp);
                     }
-
+                } else {
+                    isFav = false;
+                    mFavImage.setImageResource(R.drawable.ic_star_border_red_24dp);
                 }
             }
 
@@ -156,9 +158,23 @@ public class MealDetailsFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+        databaseReference.addValueEventListener(mValueEventListener);
 
 
+    }
+
+    void deAttachDatabaseReadListener() {
+        if (mValueEventListener != null) {
+            databaseReference.removeEventListener(mValueEventListener);
+            mValueEventListener = null;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        deAttachDatabaseReadListener();
     }
 
     void addToFavourites() {
@@ -166,12 +182,15 @@ public class MealDetailsFragment extends Fragment {
         DatabaseReference databaseReference = firebaseDatabase.getReference("FavouriteMeals");
 
         Meal m = new Meal(meal.getId(),
+                uid,
                 meal.getName(),
                 meal.getImage(),
                 meal.getIngredients(),
                 meal.getCategory(),
                 meal.gethToPrepare(),
-                meal.getPerpetrationTime());
+                meal.getPerpetrationTime(),
+                1);
+        isFav = true;
 
         databaseReference.child("users").child(uid).child(meal.getId()).setValue(m).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -192,5 +211,6 @@ public class MealDetailsFragment extends Fragment {
 
             }
         });
+
     }
 }
