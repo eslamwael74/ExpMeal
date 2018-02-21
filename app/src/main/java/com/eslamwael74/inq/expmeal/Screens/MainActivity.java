@@ -1,8 +1,10 @@
-package com.eslamwael74.inq.expmeal;
+package com.eslamwael74.inq.expmeal.Screens;
 
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.eslamwael74.inq.expmeal.R;
 
 public class MainActivity extends AppCompatActivity {
 

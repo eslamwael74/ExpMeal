@@ -1,6 +1,5 @@
-package com.eslamwael74.inq.expmeal;
+package com.eslamwael74.inq.expmeal.Screens;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -8,17 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.eslamwael74.inq.expmeal.R;
+import com.eslamwael74.inq.expmeal.Utils.UtilsFunctions;
 import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.eslamwael74.inq.expmeal.RegisterActivity.validEmail;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -55,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -66,11 +66,11 @@ public class LoginActivity extends AppCompatActivity {
     void initFirebase() {
 
         if (validateData()) {
-            progressBar.setVisibility(View.VISIBLE);
+            UtilsFunctions.showProgressbar(this);
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            progressBar.setVisibility(View.INVISIBLE);
+                            UtilsFunctions.closeProgressbar();
                             startActivity(new Intent(this,MainActivity.class));
                             finishAffinity();
                         } else {
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         email = mEditTextEmail.getText().toString().trim();
         password = mEditTextPassword.getText().toString().trim();
 
-        if (validEmail(email)) {
+        if (RegisterActivity.validEmail(email)) {
             Toast.makeText(this, getString(R.string.email_error), Toast.LENGTH_SHORT).show();
             return false;
         }

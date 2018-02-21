@@ -41,4 +41,10 @@
     <string name="add">add</string>
     <string name="meal_name">Meal name</string>
     <string name="favourite_meals">Favourite meals</string>
+    <string name="ingredients_error">ingredients empty</string>
+    <string name="how_to_error">add how to prepare food</string>
+    <string name="perperation_error">add perperation time</string>
+    <string name="category_error">select a category</string>
+    <string name="appwidget_text">Exp Meal</string>
+    <string name="empty">Empty!!</string>
 </resources>

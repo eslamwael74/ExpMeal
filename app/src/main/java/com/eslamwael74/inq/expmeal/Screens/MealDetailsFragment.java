@@ -1,4 +1,4 @@
-package com.eslamwael74.inq.expmeal;
+package com.eslamwael74.inq.expmeal.Screens;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.eslamwael74.inq.expmeal.Model.Meal;
+import com.eslamwael74.inq.expmeal.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +37,8 @@ public class MealDetailsFragment extends Fragment {
     private Meal meal;
 
     final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    ValueEventListener mValueEventListener;
+    DatabaseReference databaseReference;
     FirebaseAuth mAuth;
     String uid;
     boolean isFav = false;
@@ -45,7 +48,6 @@ public class MealDetailsFragment extends Fragment {
 
     @OnClick(R.id.fav_img)
     void favClick() {
-//        deAttachDatabaseReadListener();
         if (isFav)
             removeFromFavourite();
         else
@@ -120,9 +122,6 @@ public class MealDetailsFragment extends Fragment {
 
     }
 
-    ValueEventListener mValueEventListener;
-
-    DatabaseReference databaseReference;
 
     void initFirebase() {
 
@@ -133,7 +132,6 @@ public class MealDetailsFragment extends Fragment {
 
         databaseReference = firebaseDatabase.getReference("FavouriteMeals/users/" + uid + "/" + meal.getId());
         Log.d(TAG, "initFirebase: " + meal.getId());
-//        databaseReference.child("users/").child(uid);
 
         mValueEventListener = new ValueEventListener() {
             @Override

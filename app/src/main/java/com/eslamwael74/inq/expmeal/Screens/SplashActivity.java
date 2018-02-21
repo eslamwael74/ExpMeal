@@ -1,12 +1,10 @@
-package com.eslamwael74.inq.expmeal;
+package com.eslamwael74.inq.expmeal.Screens;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
+import com.eslamwael74.inq.expmeal.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -40,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
 
         };
 
-//        }, 3000);
+//        }, 1000);
 
     }
 

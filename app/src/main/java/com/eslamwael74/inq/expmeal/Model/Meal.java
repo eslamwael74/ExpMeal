@@ -1,4 +1,4 @@
-package com.eslamwael74.inq.expmeal;
+package com.eslamwael74.inq.expmeal.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

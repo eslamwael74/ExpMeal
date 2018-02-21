@@ -1,4 +1,4 @@
-package com.eslamwael74.inq.expmeal;
+package com.eslamwael74.inq.expmeal.Model;
 
 /**
  * Created by Eslam Wael on 2/17/2018.

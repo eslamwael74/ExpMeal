@@ -8,7 +8,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.eslamwael74.inq.expmeal.LoginActivity">
+        tools:context="com.eslamwael74.inq.expmeal.Screens.LoginActivity">
 
         <ProgressBar
             android:id="@+id/progressbar"

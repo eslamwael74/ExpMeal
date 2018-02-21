@@ -1,21 +1,24 @@
-package com.eslamwael74.inq.expmeal;
+package com.eslamwael74.inq.expmeal.Screens;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
+import com.eslamwael74.inq.expmeal.Model.Meal;
+import com.eslamwael74.inq.expmeal.R;
+import com.eslamwael74.inq.expmeal.Utils.UtilsFunctions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -24,6 +27,8 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by eslamwael74 on 2/4/2018.
@@ -34,6 +39,12 @@ public class MealFragment extends Fragment {
 
     private static final String ARG_Ex = "MealFragment";
     private String example;
+
+    final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+    Meal meal = new Meal();
+    int index;
+
 
     @BindView(R.id.tv_meal)
     TextView tvMeal;
@@ -67,10 +78,6 @@ public class MealFragment extends Fragment {
     }
 
 
-    final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    ChildEventListener mChildEventListener;
-
-
     public MealFragment() {
     }
 
@@ -101,68 +108,36 @@ public class MealFragment extends Fragment {
     }
 
     ArrayList<Meal> meals = new ArrayList<>();
-    int count = 1;
+    int count = 2;
     DatabaseReference databaseReference;
+
     void initFirebase() {
+
+        UtilsFunctions.showProgressbar(getActivity());
+
         databaseReference = firebaseDatabase.getReference("meals");
 
-        mChildEventListener = new ChildEventListener() {
+
+        Query query = databaseReference;
+
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                count++;
-
-
-                Meal meal = dataSnapshot.getValue(Meal.class);
-                meals.add(meal);
-                if (count <= dataSnapshot.getChildrenCount()) {
-                    generateNewMeal(meals);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Meal meal = snapshot.getValue(Meal.class);
+                    meals.add(meal);
                 }
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                Log.e(TAG, "onChildAdded: " + dataSnapshot.getChildren());
+                generateNewMeal(meals);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        };
-        databaseReference.addChildEventListener(mChildEventListener);
+        });
 
-//        String id =  databaseReference.push().getKey();
-//
-//        Meal meal = new Meal("secondMeal","aaa","eeweweewew",0,"w","50");
-//        databaseReference.child(id).setValue(meal);
     }
-
-    void deAttachDatabaseReadListener() {
-        if (mChildEventListener != null) {
-            databaseReference.removeEventListener(mChildEventListener);
-            mChildEventListener = null;
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        deAttachDatabaseReadListener();
-    }
-
-    Meal meal = new Meal();
-    int index;
 
     void generateNewMeal(ArrayList<Meal> mealList) {
 
@@ -172,6 +147,11 @@ public class MealFragment extends Fragment {
         meal = mealList.get(index);
 
         tvMeal.setText(meal.getName());
+
+        count = 2;
+        meals = new ArrayList<>();
+
+        UtilsFunctions.closeProgressbar();
 
     }
 }

@@ -1,4 +1,4 @@
-package com.eslamwael74.inq.expmeal;
+package com.eslamwael74.inq.expmeal.Adapter;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.eslamwael74.inq.expmeal.Model.Meal;
+import com.eslamwael74.inq.expmeal.R;
+import com.eslamwael74.inq.expmeal.Screens.MealDetailsFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

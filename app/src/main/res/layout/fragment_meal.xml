@@ -13,81 +13,88 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:elevation="@dimen/toolbar_elevation"
-            android:theme="?attr/actionBarTheme"
-            app:contentInsetEnd="@dimen/no_thing"
-            app:contentInsetStart="@dimen/no_thing"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
-            <RelativeLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/toolbar_height"
+                android:elevation="@dimen/toolbar_elevation"
+                android:theme="?attr/actionBarTheme"
+                app:contentInsetEnd="@dimen/no_thing"
+                app:contentInsetStart="@dimen/no_thing">
 
-                <LinearLayout
-                    android:id="@+id/lin_add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:orientation="horizontal">
 
-                    <View style="@style/view_height" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <ImageView
+                    <LinearLayout
+                        android:id="@+id/lin_add"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/background_gray_ripple"
-                        android:paddingLeft="@dimen/image_toolbar_padding"
-                        android:paddingRight="@dimen/image_toolbar_padding"
-                        android:src="@drawable/ic_add_red_24dp" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
 
-                </LinearLayout>
+                        <View style="@style/view_height" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/meal"
-                    android:textColor="@android:color/holo_red_dark" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/background_gray_ripple"
+                            android:paddingLeft="@dimen/image_toolbar_padding"
+                            android:paddingRight="@dimen/image_toolbar_padding"
+                            android:src="@drawable/ic_add_red_24dp" />
 
-                <LinearLayout
-                    android:id="@+id/lin_fav"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:orientation="horizontal">
+                    </LinearLayout>
 
-                    <ImageView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/meal"
+                        android:textColor="@android:color/holo_red_dark" />
+
+                    <LinearLayout
+                        android:id="@+id/lin_fav"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/background_gray_ripple"
-                        android:paddingLeft="@dimen/image_toolbar_padding"
-                        android:paddingRight="@dimen/image_toolbar_padding"
-                        android:src="@drawable/ic_star_red_24dp" />
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/background_gray_ripple"
+                            android:paddingLeft="@dimen/image_toolbar_padding"
+                            android:paddingRight="@dimen/image_toolbar_padding"
+                            android:src="@drawable/ic_star_red_24dp" />
 
 
-                    <View style="@style/view_height" />
+                        <View style="@style/view_height" />
 
-                </LinearLayout>
+                    </LinearLayout>
 
-                <View
-                    style="@style/view_width"
-                    android:layout_alignParentBottom="true" />
+                    <View
+                        style="@style/view_width"
+                        android:layout_alignParentBottom="true" />
 
-            </RelativeLayout>
+                </RelativeLayout>
 
 
-        </android.support.v7.widget.Toolbar>
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.CardView
             android:id="@+id/card"
@@ -100,7 +107,7 @@
             app:cardElevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/app_bar"
             tools:ignore="MissingConstraints">
 
             <TextView

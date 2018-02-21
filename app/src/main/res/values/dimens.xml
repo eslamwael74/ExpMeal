@@ -11,6 +11,7 @@
     <dimen name="now_vertical_margin">32dp</dimen>
     <dimen name="toolbar_height">46dp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="margin_6dp">6dp</dimen>
     <dimen name="no_thing">0dp</dimen>
     <dimen name="image_toolbar_padding">10dp</dimen>
     <dimen name="line_width">0.7dp</dimen>
@@ -20,8 +21,9 @@
     <dimen name="btn_home_vertical_margin">60dp</dimen>
     <dimen name="btn_home_padding">14dp</dimen>
     <dimen name="CircleImageView_margin_top">12dp</dimen>
-    <dimen name="CircleImageView_size">120dp</dimen>
+    <dimen name="CircleImageView_size">90dp</dimen>
     <dimen name="textViewSize">15sp</dimen>
+    <dimen name="widget_margin">8dp</dimen>
 
 
 </resources>

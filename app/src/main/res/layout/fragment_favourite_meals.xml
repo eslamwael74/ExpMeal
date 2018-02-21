@@ -11,42 +11,51 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:background="@color/white"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:elevation="@dimen/toolbar_elevation"
-            android:theme="?attr/actionBarTheme"
-            app:contentInsetEnd="@dimen/no_thing"
-            app:contentInsetStart="@dimen/no_thing"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
-            <RelativeLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/toolbar_height"
+                android:background="@color/white"
+                android:elevation="@dimen/toolbar_elevation"
+                android:theme="?attr/actionBarTheme"
+                app:contentInsetEnd="@dimen/no_thing"
+                app:contentInsetStart="@dimen/no_thing"
+                app:layout_scrollFlags="scroll|enterAlways">
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/favourite_meals"
-                    android:textColor="@android:color/holo_red_dark" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
 
-                <View
-                    style="@style/view_width"
-                    android:layout_alignParentBottom="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/favourite_meals"
+                        android:textColor="@android:color/holo_red_dark" />
 
-            </RelativeLayout>
+
+                    <View
+                        style="@style/view_width"
+                        android:layout_alignParentBottom="true" />
+
+                </RelativeLayout>
 
 
-        </android.support.v7.widget.Toolbar>
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
 
 
         <android.support.v7.widget.RecyclerView
