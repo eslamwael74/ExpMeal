@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.eslamwael74.inq.expmeal.Adapter.FavouriteMealsAdapter;
+import com.eslamwael74.inq.expmeal.ApplicationClass;
 import com.eslamwael74.inq.expmeal.Model.Meal;
 import com.eslamwael74.inq.expmeal.R;
 import com.eslamwael74.inq.expmeal.Utils.UtilsFunctions;
@@ -121,7 +122,7 @@ public class FavouriteFragment extends Fragment {
 
 
     void init() {
-        ExpService.updateService(meals, getActivity());
+        ExpService.updateService(meals, ApplicationClass.getApplicationClass());
         favouriteMealsAdapter = new FavouriteMealsAdapter(meals, getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);

@@ -50,7 +50,7 @@ public class ListViewWidgetService extends RemoteViewsService {
 
         @Override
         public int getCount() {
-            return meals.size();
+            return (meals != null) ? meals.size(): 0;
         }
 
         @Override

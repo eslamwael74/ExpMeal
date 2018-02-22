@@ -11,6 +11,7 @@
 
 
     <application
+        android:name=".ApplicationClass"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,6 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Screens.AddNewMealActivity"></activity>
+
         <service
             android:name=".Widget.ListViewWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
