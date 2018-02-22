@@ -57,11 +57,22 @@ public class ListViewWidgetService extends RemoteViewsService {
         public RemoteViews getViewAt(int position) {
             //here i return my widget View...
 
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.meal_item);
+            String category;
+
+
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_listview_item);
             Meal meal = meals.get(position);
+
+            if (meal.getCategory() == 0)
+                category = getString(R.string.breakfast);
+            else if (meal.getCategory() == 1)
+                category = getString(R.string.lunch);
+            else
+                category = getString(R.string.dinner);
+
             remoteViews.setTextViewText(R.id.tv_widget_favs,
                     meal.getName() + "\n" +
-                            getString(R.string.category) + meal.getCategory() + "\n"
+                            getString(R.string.category) + category + "\n"
             );
 
             Intent intent = new Intent();
