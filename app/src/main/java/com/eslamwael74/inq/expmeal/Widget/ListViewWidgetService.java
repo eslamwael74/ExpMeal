@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class ListViewWidgetService extends RemoteViewsService {
 
-    ArrayList<Meal> meals = new ArrayList<>();
+    ArrayList<Meal> meals;
     static String MEAL_KEY = "meal";
 
     @Override
@@ -57,11 +57,11 @@ public class ListViewWidgetService extends RemoteViewsService {
         public RemoteViews getViewAt(int position) {
             //here i return my widget View...
 
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.meal_item);
             Meal meal = meals.get(position);
             remoteViews.setTextViewText(R.id.tv_widget_favs,
                     meal.getName() + "\n" +
-                            "Category: " + meal.getCategory() + "\n"
+                            getString(R.string.category) + meal.getCategory() + "\n"
             );
 
             Intent intent = new Intent();

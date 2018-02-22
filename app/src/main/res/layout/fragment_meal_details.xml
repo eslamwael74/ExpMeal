@@ -56,7 +56,8 @@
                         android:background="@drawable/background_gray_ripple"
                         android:paddingLeft="@dimen/image_toolbar_padding"
                         android:paddingRight="@dimen/image_toolbar_padding"
-                        android:src="@drawable/ic_star_border_red_24dp" />
+                        android:src="@drawable/ic_star_border_red_24dp"
+                        android:contentDescription="@string/meal" />
 
 
                     <View style="@style/view_height" />
@@ -132,7 +133,7 @@
             android:id="@+id/tv_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
             android:textSize="@dimen/textViewSize" />
 
     </LinearLayout>
@@ -185,7 +186,7 @@
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
             android:textSize="@dimen/textViewSize" />
 
     </LinearLayout>

@@ -18,13 +18,10 @@ public class ExpService extends IntentService {
     static final String FAV_ACTIVITY = "FAV_ACTIVITY";
     static final String ACTION_UPDATE = "android.appwidget.action.APPWIDGET_UPDATE";
 
-    /**
-     * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     * @param name Used to name the worker thread, important only for debugging.
-     */
-    public ExpService(String name) {
-        super(name);
+
+
+    public ExpService() {
+        super("service");
     }
 
     public static void updateService(ArrayList<Meal> meals, Context context) {

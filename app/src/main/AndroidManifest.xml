@@ -29,6 +29,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Screens.AddNewMealActivity"></activity>
+        <service
+            android:name=".Widget.ListViewWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service android:name=".Widget.ExpService" />
 
         <receiver android:name=".Widget.ExpWidgetProvider">
             <intent-filter>

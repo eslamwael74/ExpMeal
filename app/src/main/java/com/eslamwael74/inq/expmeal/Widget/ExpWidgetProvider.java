@@ -2,6 +2,7 @@ package com.eslamwael74.inq.expmeal.Widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class ExpWidgetProvider extends AppWidgetProvider {
 
-    public static ArrayList<Meal> meals;
+    public static ArrayList<Meal> meals = new ArrayList<>();
     Context context;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -65,10 +66,24 @@ public class ExpWidgetProvider extends AppWidgetProvider {
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+    public static void updateMeals(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
+
+        if (intent.getAction().equals(ExpService.ACTION_UPDATE)) {
+            meals = (ArrayList<Meal>) intent.getExtras().get(ExpService.FAV_ACTIVITY);
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, ExpWidgetProvider.class));
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_view);
+            ExpWidgetProvider.updateMeals(context, appWidgetManager, appWidgetIds);
+            super.onReceive(context, intent);
+
+        }
     }
 
 

@@ -2,6 +2,7 @@ package com.eslamwael74.inq.expmeal.Screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -102,9 +103,22 @@ public class MealFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_meal, container, false);
         ButterKnife.bind(this, view);
 
-        initFirebase();
+        if (savedInstanceState == null){
+            initFirebase();
+        }
+        else{
+            meal = savedInstanceState.getParcelable("meal");
+            tvMeal.setText(meal.getName());
+        }
+
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("meal",meal);
     }
 
     ArrayList<Meal> meals = new ArrayList<>();
